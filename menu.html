@@ -213,13 +213,33 @@
     <img src="images/menu.jpg" alt="Menu Original" loading="lazy" onclick="openMenuImg()">
   </div>
   
+  <div class="menu-section" style="margin-top: 24px;">
+    <p class="section-ornament">✦ ✧ ✦</p>
+    <h2 class="section-title"><span class="orn">❋</span> 最新热卖 <span class="orn">❋</span></h2>
+    <p class="section-sub">— 点击宣传画查看详情 —</p>
+    <div class="hot-grid">
+      <div class="hot-item" onclick="openPosterModal('images/posters/双子肥肥搓澡长安月花椒.jpeg')">
+        <img src="images/posters/双子肥肥搓澡长安月花椒.jpeg" alt="双子肥肥搓澡" loading="lazy">
+      </div>
+      <div class="hot-item" onclick="openPosterModal('images/posters/双肥搓澡休比白菜版.jpeg')">
+        <img src="images/posters/双肥搓澡休比白菜版.jpeg" alt="双肥搓澡·休比白菜版" loading="lazy">
+      </div>
+    </div>
+  </div>
+  
   <div class="divider">✦ ✦ ✦</div>
 </div>
 
 <!-- Image Lightbox Modal -->
-<div class="img-modal" id="menuImgModal">
+<div class="img-modal" id="menuImgModal" onclick="if(event.target===this)closeMenuImg()">
   <span class="img-modal-close" onclick="closeMenuImg()">✕</span>
   <img id="menuImgContent" src="images/menu.jpg" alt="Menu">
+</div>
+
+<!-- Poster Lightbox Modal -->
+<div class="img-modal" id="posterModal" onclick="if(event.target===this)closePosterModal()">
+  <span class="img-modal-close" onclick="closePosterModal()">✕</span>
+  <img id="posterModalContent" src="" alt="">
 </div>
 
 <footer>
@@ -236,8 +256,19 @@ function closeMenuImg() {
   document.getElementById('menuImgModal').classList.remove('active');
   document.body.style.overflow = '';
 }
+
+function openPosterModal(src) {
+  document.getElementById('posterModalContent').src = src;
+  document.getElementById('posterModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closePosterModal() {
+  document.getElementById('posterModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeMenuImg();
+  if (e.key === 'Escape') { closeMenuImg(); closePosterModal(); }
 });
 </script>
 </body>

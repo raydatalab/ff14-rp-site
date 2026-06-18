@@ -11,10 +11,10 @@
 <body>
 <header>
   <p class="header-ornament">❋ ✧ ❋ ✧ ❋</p>
-  <h1><span class="typewriter-wrapper"><span class="typewriter-text" style="display:inline-block">肥肥之家</span></span></h1>
+  <h1><span class="typewriter-wrapper"><span class="typewriter-text">肥肥之家</span></span></h1>
   <p class="subtitle">✦ 红茶川 23-19 · 拉拉肥主题 RP 店 ✦</p>
   <div class="shop-info">
-    <span><span class="label">📍 地址</span> 豆豆柴-红茶川-乌尔达哈23-19</span>
+    <span><span class="label">📍 地址</span> <span class="address-value">豆豆柴-红茶川-乌尔达哈23-19</span></span>
     <span><span class="label">🕐 营业</span> 晚 9-11 招募见</span>
     <span><span class="label">💬 游客群</span> 1038234193</span>
   </div>
@@ -41,7 +41,7 @@
     </a>
   </div>
   <div class="home-deco">
-    <img src="images/index_deco.webp" alt="肥肥之家合照" loading="lazy" width="200">
+    <img src="images/groups/合照夜.jpeg" alt="肥肥之家合照" loading="lazy" style="max-width:60%;height:auto;">
   </div>
   <div class="divider">✦ ✦ ✦</div>
 </div>
@@ -51,27 +51,53 @@
   <p style="margin-top:8px;opacity:0.5;">✦ 相逢即是缘 ✦</p>
 </footer>
 <script>
-// Lightweight typewriter for homepage title
+// 首页标题打字机动画 — 修复 CJK 文字被裁切的问题
 (function(){
   var el = document.querySelector('.typewriter-text');
   if(!el) return;
   var text = el.textContent;
+  // 清空文字，准备动画
   el.textContent = '';
-  el.style.width = '0';
   el.style.display = 'inline-block';
   el.style.overflow = 'hidden';
   el.style.whiteSpace = 'nowrap';
+  el.style.maxWidth = '0';
   el.style.borderRight = '2px solid #d4af37';
-  el.style.animation = 'typewriter 1.8s steps(' + text.length + ') 0.5s forwards, blink-caret 0.8s step-end 6';
-  el.style.width = '0';
-  // Set final width via keyframe
+  el.style.verticalAlign = 'bottom';
+  el.style.paddingRight = '2px';
+  // 使用 max-width 动画替代 ch 单位（CJK 字符在 ch 单位下宽度不准确）
   var style = document.createElement('style');
-  style.textContent = '@keyframes typewriter { from { width: 0; } to { width: ' + (text.length * 1.1) + 'ch; } }';
+  // 关键：用 em 单位，每个 CJK 字约 1em 宽
+  var cjk = (text.match(/[\u4e00-\u9fff\u3000-\u303f\uff00-\uffef]/g) || []).length;
+  var ascii = text.length - cjk;
+  var total = (cjk * 1.2 + ascii * 0.65) + 'em';
+  style.textContent =
+    '@keyframes typewriter { from { max-width: 0; } to { max-width: ' + total + '; } }';
   document.head.appendChild(style);
-  // Actually set the text after animation starts
-  setTimeout(function() {
+  el.style.animation = 'typewriter 1.5s steps(' + (text.length * 2) + ') 0.3s forwards, blink-caret 0.7s step-end 4';
+  // 动画结束后：移除 overflow 限制 + 填入完整文字 + 隐藏光标
+  var finish = setTimeout(function() {
     el.textContent = text;
-  }, 100);
+    el.style.overflow = 'visible';
+    el.style.maxWidth = 'none';
+    el.style.borderRight = 'none';
+    el.style.paddingRight = '0';
+  }, 2000);
+  // 先把文字显示出来（初始状态写死）
+  setTimeout(function() {
+    if (el.textContent === '') {
+      el.textContent = text;
+    }
+  }, 1500);
+  // 备用：动画结束后清除裁剪
+  el.addEventListener('animationend', function() {
+    clearTimeout(finish);
+    el.textContent = text;
+    el.style.overflow = 'visible';
+    el.style.maxWidth = 'none';
+    el.style.borderRight = 'none';
+    el.style.paddingRight = '0';
+  });
 })();
 </script>
 </body>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>画廊 — 肥肥之家</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@zakkster/lite-smart-observer" defer></script>
+</head>
+<body>
+<header>
+  <p class="header-ornament">❋ ✧ ❋ ✧ ❋</p>
+  <h1>📸 画廊</h1>
+  <p class="subtitle">✦ 肥肥之家の珍贵影像 ✦</p>
+</header>
+<div class="container">
+  <a href="index.html" class="back-link">← 返回首页</a>
+  
+  <div class="section">
+    <p class="section-ornament">✦ ✧ ✦</p>
+    <h2 class="section-title"><span class="orn">❋</span> 合照 <span class="orn">❋</span></h2>
+    <p class="section-sub">— 温暖の大家庭 —</p>
+    <div class="gallery-grid">
+
+      <div class="gallery-item" onclick="openImgModal('images/groups/合照日.jpeg')" data-observe="fade-up">
+        <img src="images/groups/合照日.jpeg" alt="合照·日" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openImgModal('images/groups/合照夜.jpeg')" data-observe="fade-up">
+        <img src="images/groups/合照夜.jpeg" alt="合照·夜" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openImgModal('images/groups/合照晴.jpeg')" data-observe="fade-up">
+        <img src="images/groups/合照晴.jpeg" alt="合照·晴" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openImgModal('images/groups/合照云.jpeg')" data-observe="fade-up">
+        <img src="images/groups/合照云.jpeg" alt="合照·云" loading="lazy">
+      </div>
+    </div>
+  </div>
+  
+  <div class="section">
+    <p class="section-ornament">✦ ✧ ✦</p>
+    <h2 class="section-title"><span class="orn">❋</span> 宣传画 <span class="orn">❋</span></h2>
+    <p class="section-sub">— 特色项目一览 —</p>
+    <div class="gallery-grid">
+
+      <div class="gallery-item poster-item" onclick="openImgModal('images/posters/双子肥肥搓澡长安月花椒.jpeg')" data-observe="fade-up">
+        <img src="images/posters/双子肥肥搓澡长安月花椒.jpeg" alt="双子肥肥搓澡" loading="lazy">
+      </div>
+      <div class="gallery-item poster-item" onclick="openImgModal('images/posters/双肥搓澡休比白菜版.jpeg')" data-observe="fade-up">
+        <img src="images/posters/双肥搓澡休比白菜版.jpeg" alt="双肥搓澡·休比白菜版" loading="lazy">
+      </div>
+    </div>
+  </div>
+  
+  <div class="divider">✦ ✦ ✦</div>
+</div>
+
+<!-- Image Lightbox Modal -->
+<div class="img-modal" id="imgModal">
+  <span class="img-modal-close" onclick="closeImgModal()">✕</span>
+  <img id="imgModalContent" src="" alt="">
+</div>
+
+<footer>
+  <p>❋ 肥肥之家 · 红茶川 23-19 ❋</p>
+</footer>
+
+<script>
+function openImgModal(src) {
+  document.getElementById('imgModalContent').src = src;
+  document.getElementById('imgModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeImgModal() {
+  document.getElementById('imgModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeImgModal();
+});
+</script>
+</body>
+</html>

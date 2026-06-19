@@ -324,7 +324,7 @@ header .desc {
 .card-inner { display: flex; flex-direction: column; }
 .card-avatar {
   width: 100%;
-  aspect-ratio: 16/9;
+  aspect-ratio: auto;
   overflow: hidden;
   background: #120a06;
   border-bottom: 1px solid rgba(212,175,55,0.08);
@@ -419,14 +419,16 @@ header .desc {
   background: rgba(139,105,20,0.4);
   border-color: #d4af37;
 }
-.staff-modal-layout { display: flex; gap: 0; }
+.staff-modal-layout { display: flex; flex-direction: column; gap: 0; }
 .staff-modal-img {
-  flex: 0 0 280px;
-  max-width: 280px;
+  flex: none;
+  width: 100%;
   background: #120a06;
-  border-right: 1px solid rgba(212,175,55,0.12);
+  border-bottom: 1px solid rgba(212,175,55,0.12);
   display: flex;
   align-items: center;
+  justify-content: center;
+  max-height: 300px;
 }
 .staff-modal-img img {
   width: 100%;
@@ -718,8 +720,6 @@ footer::before {
   .shop-info { flex-direction: column; align-items: center; gap: 8px; padding: 14px 20px; }
   .shop-info .address-value { font-size: 1rem; }
   .nav-btn { min-width: 100px; padding: 16px 24px; }
-  .staff-modal-layout { flex-direction: column; }
-  .staff-modal-img { flex: none; max-width: 100%; border-right: none; border-bottom: 1px solid rgba(212,175,55,0.12); }
   .staff-modal-img img { max-height: 200px; }
   .menu-section { padding: 24px; }
   .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }

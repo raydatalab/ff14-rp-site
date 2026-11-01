@@ -7,6 +7,8 @@ A static HTML page showcasing staff, group photos, posters, and menu for a FF14 
 - `index.html` — main page
 - `data/` — staff and menu data
 - `images/` — all image assets
+- `images/cards/` — full-resolution employee cards used in the detail modal
+- `images/cards/thumbs/` — 480 × 225 WebP previews used by the lazy-loaded staff grid
 
 ## Card Specs
 

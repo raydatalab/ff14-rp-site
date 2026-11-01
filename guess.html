@@ -22,7 +22,7 @@
       <span>⭐ 得分：<strong id="gameScore">0</strong></span>
       <span>🔥 连击：<strong id="gameCombo">0</strong></span>
       <span>🏆 最高连击：<strong id="gameMaxCombo">0</strong></span>
-      <span>📝 <span id="gameProgress">第 1/41 题</span></span>
+      <span>📝 <span id="gameProgress">准备题目中…</span></span>
     </div>
 
     <div class="game-question">
@@ -58,7 +58,7 @@
   <div class="divider">✦ ✦ ✦</div>
 </div>
 <footer>
-  <p>❋ 肥肥之家 · 41 位肥肥等你来猜 ❋</p>
+  <p>❋ 肥肥之家 · <span id="gameStaffCount">47</span> 位肥肥等你来猜 ❋</p>
   <p>豆豆柴 · 红茶川 23-19</p>
   <!-- 访客计数器 -->
   <div style="display: inline-block; padding: 6px 14px; background: rgba(255,255,255,0.06); border: 1px solid rgba(212,175,55,0.2); border-radius: 8px; margin-top: 10px;">
@@ -161,7 +161,7 @@
     var idx = Math.floor(Math.random() * state.remaining.length);
     var targetIdx = state.remaining[idx];
     state.remaining.splice(idx, 1);
-    state.currentStaff = staffData[targetIdx - 1];
+    state.currentStaff = staffData.find(function(s) { return s.index === targetIdx; });
 
     // Build 4 options: 1 correct + 3 random wrong
     var wrongPool = staffData.filter(function(s) { return s.index !== targetIdx; });
@@ -211,8 +211,7 @@
   }
 
   function resetGame() {
-    state.remaining = [];
-    for (var i = 1; i <= TOTAL; i++) state.remaining.push(i);
+    state.remaining = staffData.map(function(s) { return s.index; });
     state.score = 0;
     state.combo = 0;
     state.maxCombo = 0;
@@ -221,6 +220,8 @@
     updateStats();
     nextQuestion();
   }
+
+  document.getElementById("gameStaffCount").textContent = TOTAL;
 
   // Wire combo modal
   document.getElementById('comboContinueBtn').addEventListener('click', hideComboCelebration);

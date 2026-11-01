@@ -110,9 +110,9 @@ header h1 .orn-title { color: #c9a052; }
   color: #8b6914;
   font-size: 0.85rem;
   letter-spacing: 1px;
-  opacity: 0.7;
+  opacity: 0.85;
   margin-top: 6px;
-  animation: hintPulse 2s ease-in-out infinite;
+  animation: none;
 }
 @keyframes hintPulse {
   0%, 100% { opacity: 0.5; }
@@ -354,7 +354,7 @@ header .desc {
 .card-inner { display: flex; flex-direction: column; }
 .card-avatar {
   width: 100%;
-  aspect-ratio: auto;
+  aspect-ratio: 32 / 15;
   overflow: hidden;
   background: #120a06;
   border-bottom: 1px solid rgba(212,175,55,0.08);
@@ -363,6 +363,7 @@ header .desc {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  display: block;
   transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 .staff-card:hover .card-avatar img { transform: scale(1.08); }

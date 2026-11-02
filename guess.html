@@ -1,32 +1,14 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>猜猜这是谁 — 肥肥之家</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header>
-  <p class="header-ornament">❋ ✧ ❋ ✧ ❋</p>
-  <h1>❓ 猜猜这是谁</h1>
-  <p class="subtitle">✦ 根据线索猜出这位肥肥 ✦</p>
-</header>
-<div class="container">
-  <a href="index.html" class="back-link">← 返回首页</a>
-
-  <div class="game-section" id="gameSection">
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="肥肥之家，豆豆柴红茶川乌尔达哈23-19，晚9-11招募见。"><title>猜猜这是谁 — 肥肥之家</title><script>document.documentElement.classList.add('js')</script><link rel="stylesheet" href="style.css?v=7f1bf14-20261102"></head><body data-page="guess"><a class="skip" href="#main">跳到内容</a><header class="topbar"><a class="brand" href="index.html"><span class="plate"><span class="plate__place">肥肥之家</span><b class="plate__no">23-19</b><span class="plate__sub">豆豆柴 · 红茶川</span></span></a><nav aria-label="主导航"><a href="index.html" >首页</a><a href="staff.html" >店员</a><a href="gallery.html" >合照簿</a><a href="guess.html" aria-current="page">猜猜看</a><a href="menu.html" >价目表</a></nav></header><main id="main" tabindex="-1" ><div class="wrap guess-page"><noscript><p>猜猜看需要 JavaScript。你仍可以浏览<a href="staff.html">全部员工资料</a>。</p></noscript><div class="page-head"><p class="eyebrow">认识 47 只肥肥，从一条线索开始</p><h1 class="display">猜猜这是谁</h1><p>根据线索，认出店里的那只肥。</p></div><div class="game-section" id="gameSection">
     <div class="game-stats">
-      <span>⭐ 得分：<strong id="gameScore">0</strong></span>
-      <span>🔥 连击：<strong id="gameCombo">0</strong></span>
-      <span>🏆 最高连击：<strong id="gameMaxCombo">0</strong></span>
-      <span>📝 <span id="gameProgress">第 1/41 题</span></span>
+      <span> 得分：<strong id="gameScore">0</strong></span>
+      <span> 连击：<strong id="gameCombo">0</strong></span>
+      <span> 最高连击：<strong id="gameMaxCombo">0</strong></span>
+      <span> <span id="gameProgress">准备题目中…</span></span>
     </div>
 
     <div class="game-question">
-      <p class="game-hint">✨ 猜猜这是哪位肥肥？ ✨</p>
+      <p class="game-hint">猜猜这是哪位肥肥？</p>
       <p class="game-desc" id="gameDesc">加载中...</p>
     </div>
 
@@ -48,190 +30,9 @@
   <div class="combo-modal" id="comboModal">
     <div class="combo-modal-overlay" id="comboOverlay"></div>
     <div class="combo-modal-content">
-      <div class="combo-modal-deco">✨ 🎉 ✨ 🎉 ✨</div>
+      
       <h2>啦哩吼！</h2>
       <p>你就是乌尔达哈之王！</p>
       <button class="combo-modal-btn" id="comboContinueBtn">继续</button>
     </div>
-  </div>
-
-  <div class="divider">✦ ✦ ✦</div>
-</div>
-<footer>
-  <p>❋ 肥肥之家 · 41 位肥肥等你来猜 ❋</p>
-  <p>豆豆柴 · 红茶川 23-19</p>
-  <!-- 访客计数器 -->
-  <div style="display: inline-block; padding: 6px 14px; background: rgba(255,255,255,0.06); border: 1px solid rgba(212,175,55,0.2); border-radius: 8px; margin-top: 10px;">
-    <img src="https://count.getloli.com/@ff14-rp-site?name=ff14-rp-site&amp;theme=booru-lewd&amp;padding=4&amp;offset=0&amp;align=top&amp;scale=1&amp;pixelated=1&amp;darkmode=auto" alt="访客计数器" />
-  </div>
-</footer>
-
-<script src="staff-data.js"></script>
-<script>
-// ===== 猜猜这是谁 小游戏 =====
-(function(){
-    var TOTAL = staffData.length;
-
-  var state = {
-    remaining: [],
-    score: 0,
-    combo: 0,
-    maxCombo: 0,
-    answered: false,
-    currentStaff: null,
-    optionStaff: []
-  };
-
-  function shuffle(a) {
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var t = a[i]; a[i] = a[j]; a[j] = t;
-    }
-    return a;
-  }
-
-  function updateStats() {
-    document.getElementById('gameScore').textContent = state.score;
-    document.getElementById('gameCombo').textContent = state.combo;
-    document.getElementById('gameMaxCombo').textContent = state.maxCombo;
-    var done = TOTAL - state.remaining.length;
-    document.getElementById('gameProgress').textContent = '第 ' + done + '/' + TOTAL + ' 题';
-  }
-
-  function handleAnswer(selectedIdx, btnIdx) {
-    if (state.answered) return;
-    state.answered = true;
-
-    var correct = state.currentStaff;
-    var optionStaff = state.optionStaff;
-    var btns = document.querySelectorAll('.game-option');
-
-    // Highlight correct answer (green)
-    for (var i = 0; i < btns.length; i++) {
-      btns[i].disabled = true;
-      if (optionStaff[i].index === correct.index) {
-        btns[i].classList.add('correct');
-      }
-    }
-
-    // Highlight wrong selection (red)
-    if (optionStaff[selectedIdx].index !== correct.index) {
-      btns[btnIdx].classList.add('wrong');
-    }
-
-    var feedback = document.getElementById('gameFeedback');
-    if (optionStaff[selectedIdx].index === correct.index) {
-      state.score++;
-      state.combo++;
-      if (state.combo > state.maxCombo) state.maxCombo = state.combo;
-      feedback.innerHTML = '✅ 答对了！是 ' + correct.emoji + correct.name + '！';
-      feedback.className = 'game-feedback game-feedback-correct';
-
-      if (state.combo === 3) {
-        showComboCelebration();
-      }
-    } else {
-      state.combo = 0;
-      feedback.innerHTML = '❌ 再想想，正确答案是 ' + correct.emoji + correct.name + '。';
-      feedback.className = 'game-feedback game-feedback-wrong';
-    }
-
-    feedback.style.display = 'block';
-    updateStats();
-    document.getElementById('gameNextBtn').style.display = 'inline-block';
-  }
-
-  function showComboCelebration() {
-    document.getElementById('comboModal').classList.add('active');
-  }
-
-  function hideComboCelebration() {
-    document.getElementById('comboModal').classList.remove('active');
-  }
-
-  function nextQuestion() {
-    if (state.remaining.length === 0) {
-      gameComplete();
-      return;
-    }
-
-    state.answered = false;
-
-    // Pick random target from remaining
-    var idx = Math.floor(Math.random() * state.remaining.length);
-    var targetIdx = state.remaining[idx];
-    state.remaining.splice(idx, 1);
-    state.currentStaff = staffData[targetIdx - 1];
-
-    // Build 4 options: 1 correct + 3 random wrong
-    var wrongPool = staffData.filter(function(s) { return s.index !== targetIdx; });
-    shuffle(wrongPool);
-    var options = [state.currentStaff, wrongPool[0], wrongPool[1], wrongPool[2]];
-    shuffle(options);
-    state.optionStaff = options;
-
-    // Show clue
-    document.getElementById('gameDesc').textContent = state.currentStaff.clue;
-
-    // Render options
-    var btns = document.querySelectorAll('.game-option');
-    for (var i = 0; i < btns.length; i++) {
-      btns[i].textContent = options[i].emoji + ' ' + options[i].name;
-      btns[i].className = 'game-option';
-      btns[i].disabled = false;
-      btns[i].onclick = (function(si, bi) {
-        return function() { handleAnswer(si, bi); };
-      })(i, i);
-    }
-
-    document.getElementById('gameFeedback').style.display = 'none';
-    document.getElementById('gameNextBtn').style.display = 'none';
-    document.getElementById('gameNextBtn').textContent = '下一题 →';
-    document.getElementById('gameOptions').style.display = 'grid';
-
-    updateStats();
-  }
-
-  function gameComplete() {
-    document.getElementById('gameDesc').textContent = '🎉 全部答完！点击下方按钮重新开始 🎉';
-    document.getElementById('gameOptions').style.display = 'none';
-
-    var feedback = document.getElementById('gameFeedback');
-    feedback.innerHTML = '🎊 恭喜你完成了所有题目！<br>得分：' + state.score + ' / ' + TOTAL + '，最高连击：' + state.maxCombo + ' 🎊' +
-      '<br><br>📜 据不愿透露姓名的乌尔达哈荣誉市民透露：<br>' +
-      '“你是瓜店长，娜娜莫，万樂万吉之后又一名到达这里的勇士。<br>' +
-      '肥肥之家的炉火，将永远为你而燃。” ✨🔥';
-    feedback.style.display = 'block';
-    feedback.className = 'game-feedback';
-
-    var nextBtn = document.getElementById('gameNextBtn');
-    nextBtn.textContent = '🔄 再来一次';
-    nextBtn.style.display = 'inline-block';
-    nextBtn.onclick = resetGame;
-  }
-
-  function resetGame() {
-    state.remaining = [];
-    for (var i = 1; i <= TOTAL; i++) state.remaining.push(i);
-    state.score = 0;
-    state.combo = 0;
-    state.maxCombo = 0;
-    state.answered = false;
-    document.getElementById('gameNextBtn').onclick = nextQuestion;
-    updateStats();
-    nextQuestion();
-  }
-
-  // Wire combo modal
-  document.getElementById('comboContinueBtn').addEventListener('click', hideComboCelebration);
-  document.getElementById('comboOverlay').addEventListener('click', hideComboCelebration);
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') hideComboCelebration();
-  });
-
-  // Start the game!
-  resetGame();
-})();
-</script>
-</body>
-</html>
+  </div><p class="caption-count"><span id="gameStaffCount">47</span> 位肥肥等你来猜</p></div></main><div id="overlays"></div><div id="review"></div><footer class="footer site-footer"><span class="plate"><span class="plate__place">乌尔达哈</span><b class="plate__no">23-19</b><span class="plate__sub">豆豆柴 · 红茶川</span></span><p style="margin-top:20px">豆豆柴 · 红茶川 / 相逢即是缘</p><small>photo by 橘子肥</small><div class="counter-frame"><span class="img-slot" data-fail="访客计数暂时不可用"><img src="https://count.getloli.com/@ff14-rp-site?name=ff14-rp-site&amp;theme=booru-lewd&amp;padding=4&amp;offset=0&amp;align=top&amp;scale=1&amp;pixelated=1&amp;darkmode=auto" alt="访客计数器" width="340" height="100" loading="lazy" decoding="async"></span></div></footer><script src="staff-data.js?v=7f1bf14-20261102"></script><script src="assets/site-manifest.js?v=7f1bf14-20261102"></script><script src="assets/site-data.js?v=7f1bf14-20261102"></script><script src="assets/site.js?v=7f1bf14-20261102"></script><script src="assets/enhancements.js?v=7f1bf14-20261102"></script><script src="assets/guess-game.js?v=7f1bf14-20261102"></script><script src="assets/guess-enhancement.js?v=7f1bf14-20261102"></script></body></html>

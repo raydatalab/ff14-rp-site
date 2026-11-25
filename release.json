@@ -1,6 +1,6 @@
 {
-  "version": "20261125-guestbook",
-  "previousPublicCommit": "c7533b19e5ef0d4e7149e1a9ed3203e4d62303b1",
+  "version": "20261125-guestbook-copy",
+  "previousPublicCommit": "aeb410b5dfcf45d43d4f1f47bc47f0ceeae33413",
   "publishedOn": "2026-11-25",
   "description": "Historical front-desk guestbook and photo/card credits"
 }
